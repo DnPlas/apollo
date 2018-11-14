@@ -15,9 +15,9 @@ def highlight_yellow_lines(frame, min_values, max_values):
     mask = cv2.inRange(hsv, min_values, max_values)
     
     # Only yellow coloured objects are highlighted and stored
-    highlighted_yellows = cv2.bitwise_and(frame, frame, mask=mask)
+#    highlighted_yellows = cv2.bitwise_and(frame, frame, mask=mask)
 
-    return highlighted_yellows
+    return mask #highlighted_yellows
 
 # Highlight WHITE lines
 def highlight_white_lines(frame):
