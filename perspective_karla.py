@@ -11,8 +11,8 @@ import matplotlib.image as mpimg
 def get_val(y,poly_coeff):
     return poly_coeff[0]*y**2+poly_coeff[1]*y+poly_coeff[2]
 
-def birdeye(image, edges):
-#    edges=cv2.Canny(image, 50, 150, apertureSize = 3)
+def birdeye(image):
+    edges=cv2.Canny(image, 50, 150, apertureSize = 3)
     
     h, w = image.shape[:2]
    
@@ -24,39 +24,12 @@ def birdeye(image, edges):
                       [0, h],       # bl
                       [0, 0],       # tl
                       [w, 0]])      # tr
-    
-
-
  
-    #src = np.float32([[(w+5), (h-140)],    # BLUE w, h-191
-    #                  [32,(h-140)],    # GREEN 
-    #                  [70, (h-180)],   # RED
-    #                  [441, (h-180)]])  # CYAN
-    #dst = np.float32([[w, h],       # br
-    #                  [0, h],       # bl
-    #                  [0, 0],       # tl
-    #                  [w, 0]])      # tr
-    #
     M = cv2.getPerspectiveTransform(src, dst)
     Minv = cv2.getPerspectiveTransform(dst, src)
     warped = cv2.warpPerspective(edges, M, (w, h), flags=cv2.INTER_LINEAR)
 
-    #img = image
-    #f, axarray = plt.subplots(1, 2)
-    #f.set_facecolor('white')
-    #axarray[0].set_title('Before perspective transform')
-    #axarray[0].imshow(img, cmap='gray')
-    #for point in src:
-    #    axarray[0].plot(*point, '.')
-    #axarray[1].set_title('After perspective transform')
-    #axarray[1].imshow(warped, cmap='gray')
-    #for point in dst:
-    #    axarray[1].plot(*point, '.')
-    #for axis in axarray:
-    #    axis.set_axis_off()
-    #plt.show()
-
-    
+   
     histogram = np.sum(warped[int(warped.shape[0]/2):,:], axis=0)
         
         # Create an output image to draw on and  visualize the result
@@ -169,5 +142,9 @@ def birdeye(image, edges):
     #
     ##cv2.imshow('linea', warped)
     #plt.show()
-    print('distancia',distance)
+    #print('distancia',distance)
+    
+    theta = np.arctan(float(distance)/6)
+    alpha = 90 - theta
+    print(theta)
     return warped, out_img

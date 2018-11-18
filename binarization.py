@@ -33,14 +33,14 @@ def highlight_white_lines(frame):
     return white_th
 
 # Return white and yellow masks
-def white_yellow(frame, yellow_min, yellow_max, kernel):
+def white_yellow(frame, yellow_min, yellow_max):
 
-    h, w = frame.shape[:2]
-    binary = np.zeros(shape=(h,w), dtype=np.uint8)
+    #h, w = frame.shape[:2]
+    #binary = np.zeros(shape=(h,w), dtype=np.uint8)
     hl_yellow = highlight_yellow_lines(frame, yellow_min, yellow_max)
-    binary = np.logical_or(binary, hl_yellow)
+    #binary = np.logical_or(binary, hl_yellow)
     hl_white = highlight_white_lines(frame)
-    binary = np.logical_or(binary, hl_white)
+    #binary = np.logical_or(binary, hl_white)
     binary = hl_yellow + hl_white
     return binary
 
