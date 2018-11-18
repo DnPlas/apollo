@@ -3,7 +3,7 @@ import cv2
 import glob
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-
+import math
 
 
 #from calibration_utils import calibrate_camera, undistort
@@ -144,7 +144,8 @@ def birdeye(image):
     #plt.show()
     #print('distancia',distance)
     
-    theta = np.arctan(float(distance)/6)
+    theta = np.arctan2(float(distance), 288)
+    theta = math.degrees(theta)
     alpha = 90 - theta
-    print(theta)
+    print(theta, alpha, distance)
     return warped, out_img
