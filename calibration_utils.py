@@ -48,15 +48,17 @@ def undistort(frame, mtx, dist, dev=False):
         cv2.imshow('Undistorted', frame_undistorted)
         cv2.waitKey(9000)
         cv2.destroyAllWindows()
+    x,y,w,h = roi
+    frame_undistorted = frame_undistorted[y:y+h, x:x+w]
     return frame_undistorted
 
-if __name__ == '__main__':
-    n,m = 7,7
-    fmt = '.png'
-    testdir = '/home/dnplas/dplascen-dev/apollo/test_images/camera_calibration/'
-    frame = cv2.imread('/home/dnplas/dplascen-dev/apollo/test_images/camera_calibration/opencv_frame_14.png')
-    ret, mtx, dist, rvecs, tvecs = calibrate_camera(n,m,testdir,fmt)
-    u_img = undistort(frame, mtx, dist)
-    cv2.imshow('u-img',u_img)
-    cv2.waitKey(5000000)
-    cv2.destroyAllWindows()
+#if __name__ == '__main__':
+#    n,m = 7,7
+#    fmt = '.png'
+#    testdir = '/home/dnplas/dplascen-dev/apollo/test_images/camera_calibration/'
+#    frame = cv2.imread('/home/dnplas/dplascen-dev/apollo/test_images/camera_calibration/opencv_frame_14.png')
+#    ret, mtx, dist, rvecs, tvecs = calibrate_camera(n,m,testdir,fmt)
+#    u_img = undistort(frame, mtx, dist)
+#    cv2.imshow('u-img',u_img)
+#    cv2.waitKey(5000000)
+#    cv2.destroyAllWindows()

@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import glob
 import matplotlib.pyplot as plt
 
 # ---- Default values ----
@@ -32,6 +31,18 @@ def highlight_white_lines(frame):
 )
 
     return white_th
+
+# Return white and yellow masks
+def white_yellow(frame, yellow_min, yellow_max, kernel):
+
+    h, w = frame.shape[:2]
+    binary = np.zeros(shape=(h,w), dtype=np.uint8)
+    hl_yellow = highlight_yellow_lines(frame, yellow_min, yellow_max)
+    binary = np.logical_or(binary, hl_yellow)
+    hl_white = highlight_white_lines(frame)
+    binary = np.logical_or(binary, hl_white)
+    binary = hl_yellow + hl_white
+    return binary
 
 # Sobel edge detection
 def edge_detection(frame, kernel):
